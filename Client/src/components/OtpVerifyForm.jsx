@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const OtpVerifyForm = ({ email, onBack }) => {
+const OtpVerifyForm = ({ email, onBack , token }) => {
   const [otpDigits, setOtpDigits] = useState(new Array(6).fill(''));
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
@@ -60,9 +60,13 @@ const OtpVerifyForm = ({ email, onBack }) => {
       });
 
       setAlert({ type: 'success', message: res.data.message });
-
+      if (token) {
+        localStorage.setItem('token', token);
+      }
       setTimeout(() => {
-        navigate('/home');  // Redirect after success
+        
+        navigate('/home'); 
+        
       }, 1000);
     } catch (err) {
       setAlert({

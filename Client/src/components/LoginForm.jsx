@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginForm = ({ onOtpSent }) => {
+const LoginForm = ({ onOtpSent ,token }) => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
@@ -23,7 +23,7 @@ const LoginForm = ({ onOtpSent }) => {
 
       // Save token if backend returns it at login (optional)
       if (res.data.token) {
-        localStorage.setItem('token', res.data.token);
+        token(res.data.token);
       }
 
       // Notify parent with email to start OTP verification flow
